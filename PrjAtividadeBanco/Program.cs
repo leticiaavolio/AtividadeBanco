@@ -1,2 +1,7 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using PrjAtividadeBanco.models;
+
+ContaPoupanca poupanca = new ContaPoupanca();
+
+Console.WriteLine("ano");
+poupanca.DataDeAniversario = Convert.ToDateTime(Console.ReadLine());
+Console.WriteLine($"{poupanca.DataDeAniversario}");
