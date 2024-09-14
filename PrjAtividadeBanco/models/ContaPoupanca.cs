@@ -11,6 +11,17 @@ namespace PrjAtividadeBanco.models
         public string Titular { get; set; }
         public string NumeroConta { get; set; }
         public double Saldo { get; set; }
-        public DateTime DataDeAniversario = DateTime.Now; 
+        public DateTime DataDeAniversario = DateTime.Now;
+
+        public string exibirDadosConta()
+        {
+            return $"#############################\n " +
+            $"O nome do titular é: {this.Titular}, " +
+            $"o número de sua conta é: {this.NumeroConta}, " +
+            $"seu saldo atual é de: {this.Saldo}, " +
+            $"e sua data de entrada é: {this.DataDeAniversario}. " +
+            $"\n#############################";
+        }
+
     }
 }

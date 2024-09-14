@@ -23,5 +23,14 @@ namespace PrjAtividadeBanco.models
             this.Saldo = pSaldo;
             this.Limite = pLimite;
         }
+        public string exibirDadosConta()
+        {
+            return $"#############################\n " +
+            $"O nome do titular é: {this.Titular}, " +
+            $"o número de sua conta é: {this.NumeroConta}, " +
+            $"seu saldo atual é de: {this.Saldo}, " +
+            $"e seu limite disponível é: {this.Limite}. " +
+            $"\n#############################";
+        }
     }
 }
