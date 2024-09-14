@@ -11,6 +11,6 @@ namespace PrjAtividadeBanco.models
         public string Titular { get; set; }
         public string NumeroConta { get; set; }
         public double Saldo { get; set; }
-        public  DateTime DataDeAniversario { get; set; }
+        public DateTime DataDeAniversario = DateTime.Now; 
     }
 }

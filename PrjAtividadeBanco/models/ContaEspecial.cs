@@ -13,6 +13,9 @@ namespace PrjAtividadeBanco.models
         public double Saldo { get; set; }
         public double Limite { get; set; }
 
+        public ContaEspecial()
+        {
+        }
         public ContaEspecial(string pTitular, string pNumeroConta, double pSaldo, double pLimite) 
         { 
             this.Titular = pTitular;
@@ -20,6 +23,5 @@ namespace PrjAtividadeBanco.models
             this.Saldo = pSaldo;
             this.Limite = pLimite;
         }
-
     }
 }
