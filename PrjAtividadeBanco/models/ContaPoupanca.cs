@@ -23,5 +23,12 @@ namespace PrjAtividadeBanco.models
             $"\n#############################";
         }
 
+        public void Sacar(double valor)
+        {
+            if (valor > Saldo)
+                throw new InvalidOperationException("#############################\n Saque não permitido. Valor maior que o saldo. \n#############################");
+            this.Saldo -= valor;
+        }
+
     }
 }

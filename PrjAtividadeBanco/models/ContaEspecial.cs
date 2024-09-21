@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,5 +33,15 @@ namespace PrjAtividadeBanco.models
             $"e seu limite disponível é: {this.Limite}. " +
             $"\n#############################";
         }
+        public void Sacar(double valor)
+        {
+            if (valor > this.Saldo + this.Limite) 
+            {
+                throw new InvalidOperationException("#############################\n Saque não permitido. Valor maior que o saldo e limite.\n#############################");
+            };
+            this.Saldo -= valor;
+        }
+
+
     }
 }
