@@ -30,5 +30,18 @@ namespace PrjAtividadeBanco.models
             this.Saldo -= valor;
         }
 
+        public void Depositar(double valor)
+        {
+            if (valor <= 0)
+                throw new ArgumentException("#############################\n Valor do depósito deve ser maior que zero.\n#############################");
+            this.Saldo += valor;
+        }
+        public string exibirDadosPosOperacao()
+        {
+            return $"#############################\n " +
+            $"seu saldo atual é de: {this.Saldo}, " +
+            $"\n#############################";
+        }
+
     }
 }

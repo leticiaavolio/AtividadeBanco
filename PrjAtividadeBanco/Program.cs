@@ -18,7 +18,12 @@ try
 {
     Console.WriteLine("Digite o valor a ser sacado: ");
     especial.Sacar(Convert.ToDouble(Console.ReadLine()));
-    Console.WriteLine($"#############################\n Saque na Conta Especial realizado. \n#############################");
+    Console.WriteLine($"#############################\n Saque na Conta Especial realizado.\n#############################");
+
+    Console.WriteLine("Digite o valor a ser depositado: ");
+    especial.Depositar(Convert.ToDouble(Console.ReadLine()));
+    Console.WriteLine($"#############################\n Valor Depositado. \n#############################");
+    Console.WriteLine(especial.exibirDadosPosOperacao());
 }
 catch (Exception e)
 {
@@ -40,7 +45,12 @@ try
 {
     Console.WriteLine("Digite o valor a ser sacado: ");
     poupanca.Sacar(Convert.ToDouble(Console.ReadLine()));
-    Console.WriteLine($"#############################\n Saque na Conta Especial realizado.\n Valor Disponível:{poupanca.Saldo} \n#############################");
+    Console.WriteLine($"#############################\n Saque na Conta Poupança realizado. \n#############################");
+
+    Console.WriteLine("Digite o valor a ser depositado: ");
+    poupanca.Depositar(Convert.ToDouble(Console.ReadLine()));
+    Console.WriteLine($"#############################\n Valor Depositado. \n#############################");
+    Console.WriteLine(poupanca.exibirDadosPosOperacao());
 }
 catch (Exception e)
 {
