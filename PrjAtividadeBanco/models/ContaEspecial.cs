@@ -55,6 +55,14 @@ namespace PrjAtividadeBanco.models
             $"\n#############################";
         }
 
+        public void Transferir(double valor, ContaEspecial contaDestino)
+        {
+            if (valor > this.Saldo + this.Limite)
+                throw new InvalidOperationException("Transferência não permitida. Valor maior que o saldo e limite.");
+
+            this.Sacar(valor); // Realiza o saque
+            contaDestino.Depositar(valor); // Credita na conta de destino
+        }
 
     }
 }

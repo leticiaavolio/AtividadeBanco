@@ -43,5 +43,15 @@ namespace PrjAtividadeBanco.models
             $"\n#############################";
         }
 
+        public void Transferir(double valor, ContaPoupanca contaDestino)
+        {
+            if (valor > Saldo)
+                throw new InvalidOperationException("Transferência não permitida. Valor maior que o saldo.");
+
+            this.Sacar(valor); // Realiza o saque
+            contaDestino.Depositar(valor); // Credita na conta de destino
+        }
+
+
     }
 }
