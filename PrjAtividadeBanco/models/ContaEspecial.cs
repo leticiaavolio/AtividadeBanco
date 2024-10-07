@@ -44,7 +44,9 @@ namespace PrjAtividadeBanco.models
         public void Depositar(double valor)
         {
             if (valor <= 0)
+            {
                 throw new ArgumentException("#############################\n Valor do depósito deve ser maior que zero.\n#############################");
+            }
             this.Saldo += valor;
         }
         public string exibirDadosPosOperacao()
@@ -55,14 +57,17 @@ namespace PrjAtividadeBanco.models
             $"\n#############################";
         }
 
+        //Promover para object
+
         public void Transferir(double valor, ContaEspecial contaDestino)
         {
-            if (valor > this.Saldo + this.Limite)
-                throw new InvalidOperationException("Transferência não permitida. Valor maior que o saldo e limite.");
-
-            this.Sacar(valor); // Realiza o saque
-            contaDestino.Depositar(valor); // Credita na conta de destino
+            this.Sacar(valor); 
+            contaDestino.Depositar(valor); 
         }
-
+        public void Transferir(double valor, ContaPoupanca contaDestino)
+        {
+            this.Sacar(valor);
+            contaDestino.Depositar(valor);
+        }
     }
 }

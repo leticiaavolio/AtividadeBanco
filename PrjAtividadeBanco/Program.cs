@@ -39,7 +39,7 @@ ContaEspecial contaEspecialDestino = new ContaEspecial
 {
     Titular = titularContaEspecialDestino,
     NumeroConta = numeroContaEspecialDestino,
-    Saldo = 0 // Inicializando com saldo 0 para o exemplo
+    Saldo = 0 
 };
 try
 {
@@ -90,7 +90,7 @@ ContaPoupanca contaPoupancaDestino = new ContaPoupanca
 {
     Titular = titularContaDestino,
     NumeroConta = numeroContaDestino,
-    Saldo = 0 // Inicializando com saldo 0 para o exemplo
+    Saldo = 0 
 };
 try
 {
