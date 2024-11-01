@@ -5,69 +5,54 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrjAtividadeBanco.models
+namespace LetiAvolio.PrjAtividadeBanco.models
 {
-    internal class ContaEspecial
+    /// <summary>
+    /// Representa uma conta especial, com limite adicional de crédito.
+    /// </summary>
+    public class ContaEspecial:Conta
     {
-        public string Titular { get; set; }
-        public string NumeroConta { get; set; }
-        public double Saldo { get; set; }
         public double Limite { get; set; }
 
-        public ContaEspecial()
+
+        public ContaEspecial(string pTitular, string pNumeroConta, double pSaldo, double pLimite, DateOnly pDataNascimento, string pTipoConta, string pSenha)
         {
+            Titular = pTitular;
+            NumeroConta = pNumeroConta;
+            Saldo = pSaldo;
+            Limite = pLimite;
+            DataNascimento = pDataNascimento;
+            DataCriacaoConta = DateTime.Now;
+            TipoConta = pTipoConta;
+            Senha = pSenha;
         }
-        public ContaEspecial(string pTitular, string pNumeroConta, double pSaldo, double pLimite) 
-        { 
-            this.Titular = pTitular;
-            this.NumeroConta = pNumeroConta;
-            this.Saldo = pSaldo;
-            this.Limite = pLimite;
-        }
-        public string exibirDadosConta()
+
+
+        /// <summary>
+        /// Exibe os dados da conta especial.
+        /// </summary>
+        /// <returns>String com os dados da conta.</returns>
+        public override string exibirDadosConta()
         {
             return $"#############################\n " +
-            $"O nome do titular é: {this.Titular}, " +
-            $"o número de sua conta é: {this.NumeroConta}, " +
-            $"seu saldo atual é de: {this.Saldo}, " +
-            $"e seu limite disponível é: {this.Limite}. " +
-            $"\n#############################";
+                   $"Titular: {Titular}\n" +
+                   $"Número da Conta: {NumeroConta}\n" +
+                   $"Saldo: {Saldo}\n" +
+                   $"Limite: {Limite}\n" +
+                   $"Data de Criação: {DataCriacaoConta}\n" +
+                   $"Data de Nascimento: {DataNascimento}\n" +
+                   $"Tipo de Conta: {TipoConta}\n" +
+                   $"#############################";
         }
-        public void Sacar(double valor)
+
+
+        public override void Sacar(double valor)
         {
-            if (valor > this.Saldo + this.Limite) 
+            if (valor > Saldo + Limite)
             {
                 throw new InvalidOperationException("#############################\n Saque não permitido. Valor maior que o saldo e limite.\n#############################");
-            };
-            this.Saldo -= valor;
-        }
-        public void Depositar(double valor)
-        {
-            if (valor <= 0)
-            {
-                throw new ArgumentException("#############################\n Valor do depósito deve ser maior que zero.\n#############################");
             }
-            this.Saldo += valor;
-        }
-        public string exibirDadosPosOperacao()
-        {
-            return $"#############################\n " +
-            $"seu saldo atual é de: {this.Saldo}, " +
-            $"e seu limite disponível é: {this.Limite}. " +
-            $"\n#############################";
-        }
-
-        //Promover para object
-
-        public void Transferir(double valor, ContaEspecial contaDestino)
-        {
-            this.Sacar(valor); 
-            contaDestino.Depositar(valor); 
-        }
-        public void Transferir(double valor, ContaPoupanca contaDestino)
-        {
-            this.Sacar(valor);
-            contaDestino.Depositar(valor);
+            Saldo -= valor;
         }
     }
 }
