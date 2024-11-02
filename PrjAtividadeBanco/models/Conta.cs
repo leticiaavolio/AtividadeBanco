@@ -35,11 +35,30 @@ namespace LetiAvolio.PrjAtividadeBanco.models
         /// <param name="valor">Valor a ser sacado.</param>
         public virtual void Sacar(double valor)
         {
-            if (valor > Saldo)
+            try
             {
-                throw new InvalidOperationException("#############################\n Saque não permitido. Valor maior que o saldo.\n#############################");
+                // Valida se o valor do saque é positivo
+                if (valor <= 0)
+                {
+                    throw new ArgumentException("O valor do saque deve ser maior que zero.");
+                }
+                // Valida se o saldo é suficiente para o saque
+                if (valor > this.Saldo)
+                {
+                    throw new InvalidOperationException("Saque não permitido. Valor maior que o saldo disponível.");
+                }
+
+                this.Saldo -= valor;
+                Console.WriteLine("Saque realizado com sucesso!");
             }
-            Saldo -= valor;
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Erro ao sacar: {ex.Message}");
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine($"Erro ao sacar: {ex.Message}");
+            }
         }
 
 
@@ -49,11 +68,20 @@ namespace LetiAvolio.PrjAtividadeBanco.models
         /// <param name="valor">Valor a ser depositado.</param>
         public void Depositar(double valor)
         {
-            if (valor <= 0)
+            try
             {
-                throw new ArgumentException("#############################\n Valor do depósito deve ser maior que zero.\n#############################");
+                // Valida se o valor do depósito é positivo
+                if (valor <= 0)
+                {
+                    throw new ArgumentException("O valor do depósito deve ser maior que zero.");
+                }
+                this.Saldo += valor;
+                Console.WriteLine("Depósito realizado com sucesso!");
             }
-            Saldo += valor;
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Erro ao depositar: {ex.Message}");
+            }
         }
 
 
@@ -67,14 +95,31 @@ namespace LetiAvolio.PrjAtividadeBanco.models
         {
             try
             {
-                Sacar(pValor);
+                // Valida se o valor da transferência é positivo
+                if (pValor <= 0)
+                {
+                    throw new ArgumentException("O valor da transferência deve ser maior que zero.");
+                }
+
+                // Tenta realizar o saque e o depósito para a transferência
+                this.Sacar(pValor);
                 pConta.Depositar(pValor);
+                Console.WriteLine("Transferência realizada com sucesso!");
+                return true;
             }
-            catch (Exception)
+            catch (ArgumentException ex)
             {
-                return false;
+                Console.WriteLine($"Erro na transferência: {ex.Message}");
             }
-            return true;
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine($"Erro na transferência: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro inesperado na transferência: {ex.Message}");
+            }
+            return false;
         }
 
 

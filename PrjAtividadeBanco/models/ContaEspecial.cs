@@ -45,14 +45,26 @@ namespace LetiAvolio.PrjAtividadeBanco.models
                    $"#############################";
         }
 
-
+        /// <summary>
+        /// Realiza um saque na conta especial, validando se o valor é positivo e se há saldo ou limite disponível.
+        /// </summary>
+        /// <param name="valor">Valor a ser sacado.</param>
         public override void Sacar(double valor)
         {
-            if (valor > Saldo + Limite)
+            try
             {
-                throw new InvalidOperationException("#############################\n Saque não permitido. Valor maior que o saldo e limite.\n#############################");
+                // Valida se o saldo e o limite juntos são suficientes para o saque
+                if (valor > Saldo + Limite)
+                {
+                    throw new InvalidOperationException("#############################\n Saque não permitido. Valor maior que o saldo e limite.\n#############################");
+                }
+                Saldo -= valor;
             }
-            Saldo -= valor;
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }
