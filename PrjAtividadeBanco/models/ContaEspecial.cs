@@ -12,7 +12,17 @@ namespace LetiAvolio.PrjAtividadeBanco.models
     /// </summary>
     public class ContaEspecial:Conta
     {
-        public double Limite { get; set; }
+        private double _limite;
+
+        public double Limite {
+            get => _limite;
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException("O limite não pode ser negativo.");
+                _limite = value;
+            }
+        }
 
 
         public ContaEspecial(string pTitular, string pNumeroConta, double pSaldo, double pLimite, DateOnly pDataNascimento, string pTipoConta, string pSenha)
@@ -49,21 +59,26 @@ namespace LetiAvolio.PrjAtividadeBanco.models
         /// Realiza um saque na conta especial, validando se o valor é positivo e se há saldo ou limite disponível.
         /// </summary>
         /// <param name="valor">Valor a ser sacado.</param>
-        public override void Sacar(double valor)
+        public override string Sacar(double valor)
         {
             try
             {
+                if (valor <= 0)
+                {
+                    throw new ArgumentException("O valor do saque deve ser maior que zero.");
+                }
                 // Valida se o saldo e o limite juntos são suficientes para o saque
                 if (valor > Saldo + Limite)
                 {
-                    throw new InvalidOperationException("#############################\n Saque não permitido. Valor maior que o saldo e limite.\n#############################");
+                    throw new InvalidOperationException("Saque não permitido. Valor maior que o saldo e limite.");
                 }
-                Saldo -= valor;
-            }
-            catch (Exception)
-            {
 
-                throw;
+                Saldo -= valor;
+                return "Saque realizado com sucesso!";
+            }
+            catch (Exception ex)
+            {
+                return $"Erro ao sacar: {ex.Message}";
             }
         }
     }
